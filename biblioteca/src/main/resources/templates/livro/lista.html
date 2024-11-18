@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Livros</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1e1e30, #3e206d);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin: 40px 0;
+            color: #ff7eb6;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Cabeçalho */
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 1px 1px 4px #4ecdc4;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu li {
+            margin-left: 20px;
+        }
+
+        .menu a {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #4ecdc4;
+            color: #1e1e30;
+            transform: scale(1.1);
+        }
+
+        /* Tabela estilizada */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #27293d;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        thead {
+            background: #4ecdc4;
+            color: #1e1e30;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 15px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        tbody tr:hover {
+            background: #4ecdc4;
+            color: #1e1e30;
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        td a {
+            color: #4ecdc4;
+            font-weight: 500;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+
+        td a:hover {
+            color: #ff7eb6;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            .menu {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background: rgba(0, 0, 0, 0.9);
+                width: 100%;
+                display: none;
+            }
+
+            .menu-btn:checked + .menu {
+                display: flex;
+            }
+
+            .menu li {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <a href="" class="logo">Controle de Livros</a>
+        <ul class="menu">
+            <li><a href="/livros/criar">Cadastrar</a></li>
+        </ul>
+    </header>
+
+    <!-- Título -->
+    <h1>Lista de Livros</h1>
+
+    <!-- Tabela -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Gênero</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="livro : ${livros}">
+                <td th:text="${livro.idLivro}">1</td>
+                <td th:text="${livro.nomeLivro}">Nome do Livro</td>
+                <td th:text="${livro.generoLivro}">Gênero do Livro</td>
+                <td>
+                    <a th:href="@{/livros/editar/{id}(id=${livro.idLivro})}">Editar</a>
+                    <a th:href="@{/livros/excluir/{id}(id=${livro.idLivro})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
